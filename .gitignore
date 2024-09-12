@@ -1,0 +1,16 @@
+#Ignore .env file (for sensitive credentials)
+.env
+
+# Ignore txt files
+*.txt
+
+# Ignore Python compiled files
+*.pyc
+__pycache__/
+
+# Ignore virtual environments
+venv/
+env/
+
+# Ignore macOS system files
+.DS_Store
