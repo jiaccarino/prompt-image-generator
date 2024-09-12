@@ -11,6 +11,12 @@ api_key = os.getenv("STABILITY_API_KEY")  # No hardcoding of the key
 # Stability AI API endpoint for image generation
 api_url = "https://api.stability.ai/v2beta/stable-image/generate/ultra"
 
+# Directory to save generated images
+output_dir = "./generated_images"
+
+# Ensure the output directory exists
+os.makedirs(output_dir, exist_ok=True)
+
 # Function to generate an image based on a prompt using the API
 def generate_image(prompt, output_format="webp", aspect_ratio="16:9", seed=0, negative_prompt=None):
     response = requests.post(
@@ -31,10 +37,14 @@ def generate_image(prompt, output_format="webp", aspect_ratio="16:9", seed=0, ne
 
     # Handle the response
     if response.status_code == 200:
+        # Generate a safe filename by using part of the prompt
+        filename = f"generated_image_{prompt[:10].replace(' ', '_')}.{output_format}"
+        file_path = os.path.join(output_dir, filename)
+
         # Save the image
-        with open(f"./generated_image_{prompt[:10]}.{output_format}", 'wb') as file:
+        with open(file_path, 'wb') as file:
             file.write(response.content)
-        print(f"Image for prompt '{prompt[:50]}...' saved as 'generated_image_{prompt[:10]}.{output_format}'")
+        print(f"Image for prompt '{prompt[:50]}...' saved as '{file_path}'")
     else:
         raise Exception(f"Error: {response.status_code} - {response.json()}")
 
