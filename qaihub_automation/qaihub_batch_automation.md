@@ -95,4 +95,3 @@ If you encounter issues:
 - To process a different number of models at once, adjust the `batch_size` in the `main()` function.
 - To add support for different model output formats, modify the output processing section in the main loop.
 
-For further assistance or to report issues, please contact the Qualcomm AI Hub support team.

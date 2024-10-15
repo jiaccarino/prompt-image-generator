@@ -87,6 +87,4 @@ The script follows this workflow:
 
 - If the script seems to hang, it may be because AIHub is taking longer than expected to process your model or run inference. The script includes wait times between status checks, so be patient.
 
-- For any other errors, check the error message printed by the script. It often contains helpful information about what went wrong.
-
-If you continue to experience issues, consult the AIHub documentation or contact their support team for assistance.
+- For any other errors, check the error message printed by the script.

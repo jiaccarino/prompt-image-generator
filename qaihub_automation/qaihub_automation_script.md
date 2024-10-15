@@ -82,5 +82,3 @@ If you encounter any errors:
 2. Check that you have an active internet connection for downloading the model and sample image.
 3. Verify that you have the necessary permissions to write files in the script's directory.
 4. If you receive API-related errors, ensure you have proper authentication set up for the QAI Hub SDK.
-
-For more information on the QAI Hub SDK, refer to the official documentation.
