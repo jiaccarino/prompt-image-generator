@@ -1,0 +1,89 @@
+2024-10-15 13:22:41,789 - INFO - Starting QAI Hub model processing script
+2024-10-15 13:22:41,789 - INFO - Fetching models with batch size: 5
+2024-10-15 13:22:47,558 - INFO - Fetched 26 models in total
+2024-10-15 13:22:47,559 - INFO - Fetching available devices
+2024-10-15 13:22:47,737 - INFO - Fetched 68 devices
+2024-10-15 13:22:47,738 - INFO - Available devices: ['Google Pixel 3 (Family)', 'Google Pixel 3', 'Google Pixel 3a', 'Google Pixel 3 XL', 'Google Pixel 4', 'Google Pixel 4', 'Google Pixel 4a', 'Google Pixel 5', 'Samsung Galaxy Tab S7', 'Samsung Galaxy Tab A8 (2021)', 'Samsung Galaxy Note 20 (Intl)', 'Samsung Galaxy S21 (Family)', 'Samsung Galaxy S21', 'Samsung Galaxy S21+', 'Samsung Galaxy S21 Ultra', 'Xiaomi Redmi Note 10 5G', 'Google Pixel 3a XL', 'Google Pixel 4a', 'Google Pixel 5 (Family)', 'Google Pixel 5', 'Google Pixel 5a 5G', 'Google Pixel 6', 'Samsung Galaxy A53 5G', 'Samsung Galaxy A73 5G', 'RB3 Gen 2 (Proxy)', 'QCS6490 (Proxy)', 'RB5 (Proxy)', 'QCS8250 (Proxy)', 'QCS8550 (Proxy)', 'Samsung Galaxy S21 (Family)', 'Samsung Galaxy S21', 'Samsung Galaxy S21 Ultra', 'Samsung Galaxy S22 (Family)', 'Samsung Galaxy S22 Ultra 5G', 'Samsung Galaxy S22 5G', 'Samsung Galaxy S22+ 5G', 'Samsung Galaxy Tab S8', 'Xiaomi 12 (Family)', 'Xiaomi 12', 'Xiaomi 12 Pro', 'Google Pixel 6 (Family)', 'Google Pixel 6', 'Google Pixel 6a', 'Google Pixel 7 (Family)', 'Google Pixel 7', 'Google Pixel 7 Pro', 'Samsung Galaxy A14 5G', 'Samsung Galaxy S22 5G', 'QCS8450 (Proxy)', 'XR2 Gen 2 (Proxy)', 'Samsung Galaxy S23 (Family)', 'SA8650 (Proxy)', 'SA8775 (Proxy)', 'SA8255 (Proxy)', 'Samsung Galaxy S23', 'Samsung Galaxy S23+', 'Samsung Galaxy S23 Ultra', 'Google Pixel 7', 'Google Pixel 8 (Family)', 'Google Pixel 8', 'Google Pixel 8 Pro', 'Samsung Galaxy S24 (Family)', 'Samsung Galaxy S24', 'Samsung Galaxy S24 Ultra', 'Samsung Galaxy S24+', 'Snapdragon 8cx Gen 3 CRD', 'Snapdragon X Elite CRD', 'Snapdragon X Plus 8-Core CRD']
+2024-10-15 13:22:47,738 - INFO - Processing image from URL: https://qaihub-public-assets.s3.us-west-2.amazonaws.com/apidoc/input_image1.jpg
+2024-10-15 13:22:48,153 - INFO - Checking model mm6vv3p4q for compatible devices
+2024-10-15 13:22:48,284 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mm6vv3p4q
+2024-10-15 13:22:48,284 - INFO - Checking model mnlvv9ykm for compatible devices
+2024-10-15 13:22:48,419 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mnlvv9ykm
+2024-10-15 13:22:48,420 - INFO - Checking model mmr66vpwm for compatible devices
+2024-10-15 13:22:48,556 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mmr66vpwm
+2024-10-15 13:22:48,556 - INFO - Checking model mn7llj14q for compatible devices
+2024-10-15 13:22:48,698 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mn7llj14q
+2024-10-15 13:22:48,698 - INFO - Checking model mq3eezylm for compatible devices
+2024-10-15 13:22:48,838 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mq3eezylm
+2024-10-15 13:22:48,839 - INFO - Checking model mm6vv3r4q for compatible devices
+2024-10-15 13:22:48,969 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mm6vv3r4q
+2024-10-15 13:22:48,970 - INFO - Checking model mmdyy17om for compatible devices
+2024-10-15 13:22:49,095 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mmdyy17om
+2024-10-15 13:22:49,095 - INFO - Checking model mn1zzj5pm for compatible devices
+2024-10-15 13:22:49,229 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mn1zzj5pm
+2024-10-15 13:22:49,229 - INFO - Checking model mq8kk383q for compatible devices
+2024-10-15 13:22:49,359 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mq8kk383q
+2024-10-15 13:22:49,359 - INFO - Checking model mq9pp3krn for compatible devices
+2024-10-15 13:22:49,484 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mq9pp3krn
+2024-10-15 13:22:49,484 - INFO - Checking model mq244vvlm for compatible devices
+2024-10-15 13:22:49,620 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mq244vvlm
+2024-10-15 13:22:49,621 - INFO - Checking model mn7lljj4q for compatible devices
+2024-10-15 13:22:49,750 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mn7lljj4q
+2024-10-15 13:22:49,750 - INFO - Checking model mqy33ggvm for compatible devices
+2024-10-15 13:22:49,750 - INFO - No compatible device found for model mqy33ggvm. Skipping.
+2024-10-15 13:22:49,750 - INFO - Checking model mn0xxddxn for compatible devices
+2024-10-15 13:22:49,750 - INFO - No compatible device found for model mn0xxddxn. Skipping.
+2024-10-15 13:22:49,750 - INFO - Checking model mm5dd336n for compatible devices
+2024-10-15 13:22:49,879 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mm5dd336n
+2024-10-15 13:22:49,880 - INFO - Checking model mn7llj73q for compatible devices
+2024-10-15 13:22:50,024 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mn7llj73q
+2024-10-15 13:22:50,025 - INFO - Checking model mqy33g75m for compatible devices
+2024-10-15 13:22:50,025 - INFO - No compatible device found for model mqy33g75m. Skipping.
+2024-10-15 13:22:50,025 - INFO - Checking model mqkklj41q for compatible devices
+2024-10-15 13:22:50,170 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mqkklj41q
+2024-10-15 13:22:50,171 - INFO - Checking model mnweyjz3n for compatible devices
+2024-10-15 13:22:50,298 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mnweyjz3n
+2024-10-15 13:22:50,298 - INFO - Checking model mmdydjr3m for compatible devices
+2024-10-15 13:22:50,298 - INFO - No compatible device found for model mmdydjr3m. Skipping.
+2024-10-15 13:22:50,298 - INFO - Checking model mmr6dz9xm for compatible devices
+2024-10-15 13:22:50,464 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mmr6dz9xm
+2024-10-15 13:22:50,464 - INFO - Checking model mq24jdodm for compatible devices
+2024-10-15 13:22:50,613 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mq24jdodm
+2024-10-15 13:22:50,613 - INFO - Checking model mn7l6go8q for compatible devices
+2024-10-15 13:22:50,613 - INFO - No compatible device found for model mn7l6go8q. Skipping.
+2024-10-15 13:22:50,613 - INFO - Checking model mqy320kxm for compatible devices
+2024-10-15 13:22:50,758 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mqy320kxm
+2024-10-15 13:22:50,758 - INFO - Checking model mn0xrpo9n for compatible devices
+2024-10-15 13:22:50,905 - INFO - Compatible device found: Samsung Galaxy S24 (Family) for model mn0xrpo9n
+2024-10-15 13:22:50,906 - INFO - Checking model mm5d6ko9n for compatible devices
+2024-10-15 13:22:50,906 - INFO - No compatible device found for model mm5d6ko9n. Skipping.
+2024-10-15 13:22:50,906 - INFO - 
+Summary of models with compatible devices:
+2024-10-15 13:22:50,906 - INFO - Model ID: mm6vv3p4q, Model Name: job_j5q6q4x4p_optimized_tflite, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,906 - INFO - Model ID: mnlvv9ykm, Model Name: job_j5q6q4x4p_onnx, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,906 - INFO - Model ID: mmr66vpwm, Model Name: job_jp2kyoq4p_optimized_tflite, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,906 - INFO - Model ID: mn7llj14q, Model Name: job_jp2kyoq4p_onnx, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,906 - INFO - Model ID: mq3eezylm, Model Name: job_j57yro1l5_optimized_tflite, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,906 - INFO - Model ID: mm6vv3r4q, Model Name: job_j57yro1l5_onnx, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,906 - INFO - Model ID: mmdyy17om, Model Name: job_jgo26d9xp_optimized_tflite, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,907 - INFO - Model ID: mn1zzj5pm, Model Name: job_jgo26d9xp_onnx, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,907 - INFO - Model ID: mq8kk383q, Model Name: job_j56y4o00p_optimized_tflite, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,907 - INFO - Model ID: mq9pp3krn, Model Name: job_j56y4o00p_onnx, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,907 - INFO - Model ID: mq244vvlm, Model Name: job_jgjvn3yxg_optimized_tflite, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,907 - INFO - Model ID: mn7lljj4q, Model Name: job_jgjvn3yxg_onnx, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,907 - INFO - Model ID: mm5dd336n, Model Name: job_jp3j0o7lg_optimized_tflite, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,907 - INFO - Model ID: mn7llj73q, Model Name: job_jp3j0o7lg_onnx, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,907 - INFO - Model ID: mqkklj41q, Model Name: job_jp8qyz7xp_optimized_tflite, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,907 - INFO - Model ID: mnweyjz3n, Model Name: job_jp8qyz7xp_onnx, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,907 - INFO - Model ID: mmr6dz9xm, Model Name: job_j5mnx3zwp_optimized_tflite, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,907 - INFO - Model ID: mq24jdodm, Model Name: job_j5mnx3zwp_onnx, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,907 - INFO - Model ID: mqy320kxm, Model Name: job_j57yrxdl5_optimized_tflite, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,907 - INFO - Model ID: mn0xrpo9n, Model Name: job_j57yrxdl5_onnx, Compatible Device: Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,907 - INFO - Compiling model mm6vv3p4q for device Samsung Galaxy S24 (Family)
+2024-10-15 13:22:50,908 - ERROR - Error compiling model mm6vv3p4q: Input model type cannot be compiled.
+2024-10-15 13:22:50,908 - ERROR - Error compiling or running inference for model mm6vv3p4q: Input model type cannot be compiled.
+2024-10-15 13:22:50,908 - INFO - Compiling model mnlvv9ykm for device Samsung Galaxy S24 (Family)
+2024-10-15 13:23:33,151 - INFO - Model mnlvv9ykm compiled successfully
+2024-10-15 13:23:33,153 - INFO - Running inference for model mqv44gd0q on device Samsung Galaxy S24 (Family)
+2024-10-15 13:23:33,738 - INFO - Uploading asset to https://tetrahub-qprod-userdata.s3.amazonaws.com/
+2024-10-15 13:23:34,387 - INFO - Successfully uploaded asset with response status: 204
