@@ -46,12 +46,12 @@ The script performs the following steps:
 
 ## Running the Script
 
-1. Save the script to a file (e.g., `mobilenet_inference.py`).
+1. Save the script to a file (e.g., `qaihub_automation_script.py`).
 2. Open a terminal and navigate to the directory containing the script.
 3. Run the script using Python:
 
 ```
-python mobilenet_inference.py
+python qaihub_automation_script.py
 ```
 
 ## Expected Output

@@ -105,3 +105,68 @@ Summary of models with compatible devices:
 2024-10-15 13:28:29,313 - INFO - Running inference for model mqy33gk7m on device Samsung Galaxy S24 (Family)
 2024-10-15 13:28:29,866 - INFO - Uploading asset to https://tetrahub-qprod-userdata.s3.amazonaws.com/
 2024-10-15 13:28:30,470 - INFO - Successfully uploaded asset with response status: 204
+2024-10-15 13:30:24,532 - ERROR - Error compiling or running inference for model mm6vv3r4q: 'list' object has no attribute 'shape'
+2024-10-15 13:30:24,533 - INFO - Compiling model mmdyy17om for device Samsung Galaxy S24 (Family)
+2024-10-15 13:30:24,533 - ERROR - Error compiling model mmdyy17om: Input model type cannot be compiled.
+2024-10-15 13:30:24,533 - ERROR - Error compiling or running inference for model mmdyy17om: Input model type cannot be compiled.
+2024-10-15 13:30:24,533 - INFO - Compiling model mn1zzj5pm for device Samsung Galaxy S24 (Family)
+2024-10-15 13:31:06,617 - INFO - Model mn1zzj5pm compiled successfully
+2024-10-15 13:31:06,619 - INFO - Running inference for model mn0xxdo8n on device Samsung Galaxy S24 (Family)
+2024-10-15 13:31:07,322 - INFO - Uploading asset to https://tetrahub-qprod-userdata.s3.amazonaws.com/
+2024-10-15 13:31:08,413 - INFO - Successfully uploaded asset with response status: 204
+2024-10-15 13:32:52,535 - ERROR - Error compiling or running inference for model mn1zzj5pm: 'list' object has no attribute 'shape'
+2024-10-15 13:32:52,536 - INFO - Compiling model mq8kk383q for device Samsung Galaxy S24 (Family)
+2024-10-15 13:32:52,536 - ERROR - Error compiling model mq8kk383q: Input model type cannot be compiled.
+2024-10-15 13:32:52,536 - ERROR - Error compiling or running inference for model mq8kk383q: Input model type cannot be compiled.
+2024-10-15 13:32:52,536 - INFO - Compiling model mq9pp3krn for device Samsung Galaxy S24 (Family)
+2024-10-15 13:33:35,139 - INFO - Model mq9pp3krn compiled successfully
+2024-10-15 13:33:35,139 - INFO - Running inference for model mn7lljovq on device Samsung Galaxy S24 (Family)
+2024-10-15 13:33:35,707 - INFO - Uploading asset to https://tetrahub-qprod-userdata.s3.amazonaws.com/
+2024-10-15 13:33:36,774 - INFO - Successfully uploaded asset with response status: 204
+2024-10-15 13:35:20,912 - ERROR - Error compiling or running inference for model mq9pp3krn: 'list' object has no attribute 'shape'
+2024-10-15 13:35:20,913 - INFO - Compiling model mq244vvlm for device Samsung Galaxy S24 (Family)
+2024-10-15 13:35:20,913 - ERROR - Error compiling model mq244vvlm: Input model type cannot be compiled.
+2024-10-15 13:35:20,913 - ERROR - Error compiling or running inference for model mq244vvlm: Input model type cannot be compiled.
+2024-10-15 13:35:20,913 - INFO - Compiling model mn7lljj4q for device Samsung Galaxy S24 (Family)
+2024-10-15 13:36:02,891 - INFO - Model mn7lljj4q compiled successfully
+2024-10-15 13:36:02,891 - INFO - Running inference for model mmr66v9rm on device Samsung Galaxy S24 (Family)
+2024-10-15 13:36:03,440 - INFO - Uploading asset to https://tetrahub-qprod-userdata.s3.amazonaws.com/
+2024-10-15 13:36:04,539 - INFO - Successfully uploaded asset with response status: 204
+2024-10-15 13:37:48,853 - ERROR - Error compiling or running inference for model mn7lljj4q: 'list' object has no attribute 'shape'
+2024-10-15 13:37:48,854 - INFO - Compiling model mm5dd336n for device Samsung Galaxy S24 (Family)
+2024-10-15 13:37:48,854 - ERROR - Error compiling model mm5dd336n: Input model type cannot be compiled.
+2024-10-15 13:37:48,854 - ERROR - Error compiling or running inference for model mm5dd336n: Input model type cannot be compiled.
+2024-10-15 13:37:48,854 - INFO - Compiling model mn7llj73q for device Samsung Galaxy S24 (Family)
+2024-10-15 13:38:30,918 - INFO - Model mn7llj73q compiled successfully
+2024-10-15 13:38:30,922 - INFO - Running inference for model mn1zzjo8m on device Samsung Galaxy S24 (Family)
+2024-10-15 13:38:31,501 - INFO - Uploading asset to https://tetrahub-qprod-userdata.s3.amazonaws.com/
+2024-10-15 13:38:32,532 - INFO - Successfully uploaded asset with response status: 204
+2024-10-15 13:40:26,635 - ERROR - Error compiling or running inference for model mn7llj73q: 'list' object has no attribute 'shape'
+2024-10-15 13:40:26,636 - INFO - Compiling model mqkklj41q for device Samsung Galaxy S24 (Family)
+2024-10-15 13:40:26,636 - ERROR - Error compiling model mqkklj41q: Input model type cannot be compiled.
+2024-10-15 13:40:26,636 - ERROR - Error compiling or running inference for model mqkklj41q: Input model type cannot be compiled.
+2024-10-15 13:40:26,636 - INFO - Compiling model mnweyjz3n for device Samsung Galaxy S24 (Family)
+2024-10-15 13:41:08,684 - INFO - Model mnweyjz3n compiled successfully
+2024-10-15 13:41:08,685 - INFO - Running inference for model mqkkkr6zq on device Samsung Galaxy S24 (Family)
+2024-10-15 13:41:09,238 - INFO - Uploading asset to https://tetrahub-qprod-userdata.s3.amazonaws.com/
+2024-10-15 13:41:09,730 - INFO - Successfully uploaded asset with response status: 204
+2024-10-15 13:42:53,687 - ERROR - Error compiling or running inference for model mnweyjz3n: 'list' object has no attribute 'shape'
+2024-10-15 13:42:53,688 - INFO - Compiling model mmr6dz9xm for device Samsung Galaxy S24 (Family)
+2024-10-15 13:42:53,688 - ERROR - Error compiling model mmr6dz9xm: Input model type cannot be compiled.
+2024-10-15 13:42:53,688 - ERROR - Error compiling or running inference for model mmr6dz9xm: Input model type cannot be compiled.
+2024-10-15 13:42:53,688 - INFO - Compiling model mq24jdodm for device Samsung Galaxy S24 (Family)
+2024-10-15 13:43:25,587 - INFO - Model mq24jdodm compiled successfully
+2024-10-15 13:43:25,588 - INFO - Running inference for model mng110oen on device Samsung Galaxy S24 (Family)
+2024-10-15 13:43:26,047 - INFO - Uploading asset to https://tetrahub-qprod-userdata.s3.amazonaws.com/
+2024-10-15 13:43:26,519 - INFO - Successfully uploaded asset with response status: 204
+2024-10-15 13:45:20,953 - ERROR - Error compiling or running inference for model mq24jdodm: 'list' object has no attribute 'shape'
+2024-10-15 13:45:20,953 - INFO - Compiling model mqy320kxm for device Samsung Galaxy S24 (Family)
+2024-10-15 13:45:20,953 - ERROR - Error compiling model mqy320kxm: Input model type cannot be compiled.
+2024-10-15 13:45:20,953 - ERROR - Error compiling or running inference for model mqy320kxm: Input model type cannot be compiled.
+2024-10-15 13:45:20,954 - INFO - Compiling model mn0xrpo9n for device Samsung Galaxy S24 (Family)
+2024-10-15 13:46:03,029 - INFO - Model mn0xrpo9n compiled successfully
+2024-10-15 13:46:03,030 - INFO - Running inference for model mm6vv38vq on device Samsung Galaxy S24 (Family)
+2024-10-15 13:46:03,527 - INFO - Uploading asset to https://tetrahub-qprod-userdata.s3.amazonaws.com/
+2024-10-15 13:46:04,022 - INFO - Successfully uploaded asset with response status: 204
+2024-10-15 13:47:58,370 - ERROR - Error compiling or running inference for model mn0xrpo9n: 'list' object has no attribute 'shape'
+2024-10-15 13:47:58,370 - INFO - QAI Hub model processing script completed

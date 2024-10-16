@@ -33,7 +33,7 @@ Note: The `qai_hub` package might need to be installed from a specific source pr
 2. Run the script:
 
 ```
-python qai_hub_model_processing.py
+python qai_hub_model_automation.py
 ```
 
 ## Script Components
