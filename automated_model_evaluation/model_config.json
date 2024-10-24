@@ -1,0 +1,16 @@
+{
+    "models": [
+        "CompVis/stable-diffusion-v1-4",
+        "stabilityai/stable-diffusion-2-1-base",
+        "stabilityai/sdxl-turbo",
+        "amused/amused-512"
+    ],
+    "prompts": [
+        "Four cartoon dwarfs playing video games in a living room with soda on the table",
+        "A bustling city street at night with neon lights reflecting on wet pavement",
+        "A cat sleeping on a laptop keyboard, with a mouse and coffee mug on the desk, in sketch style",
+        "A laptop, coffee mug, and notebook on a desk with a task lamp, in minimalist style",
+        "A basket of yarn, knitting needles, and a half-finished scarf on a rocking chair, in watercolor style"
+    ],
+    "target_size": [768, 768]
+}
