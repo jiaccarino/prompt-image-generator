@@ -1,0 +1,19 @@
+target_size: [768, 768]
+models:
+  - name: "CompVis/stable-diffusion-v1-4"
+    type: "stable-diffusion"
+    torch_dtype: "torch.float32"
+    
+  - name: "stabilityai/stable-diffusion-2-1-base"
+    type: "stable-diffusion"
+    torch_dtype: "torch.float32"
+    
+  - name: "stabilityai/sdxl-turbo"
+    type: "sdxl"
+    torch_dtype: "torch.float16"
+    variant: "fp16"
+    
+  - name: "amused/amused-512"
+    type: "amused"
+    torch_dtype: "torch.float16"
+    variant: "fp16"
