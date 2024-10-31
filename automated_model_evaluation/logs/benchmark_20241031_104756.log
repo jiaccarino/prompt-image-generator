@@ -1,0 +1,5 @@
+2024-10-31 10:47:56,568 - INFO - 
+Starting benchmark for model: CompVis/stable-diffusion-v1-4
+2024-10-31 10:48:51,183 - INFO - Generated image 1/5 in 22.84 seconds
+2024-10-31 10:49:12,974 - INFO - Generated image 2/5 in 21.57 seconds
+2024-10-31 10:49:34,953 - INFO - Generated image 3/5 in 21.68 seconds

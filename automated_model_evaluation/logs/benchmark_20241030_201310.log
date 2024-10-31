@@ -1,0 +1,24 @@
+2024-10-30 20:13:10,682 - INFO - 
+Starting benchmark for model: CompVis/stable-diffusion-v1-4
+2024-10-30 20:13:10,951 - ERROR - Error processing model CompVis/stable-diffusion-v1-4: 
+StableDiffusionPipeline requires the transformers library but it was not found in your environment. You can install it with pip: `pip
+install transformers`
+
+2024-10-30 20:13:11,052 - INFO - 
+Starting benchmark for model: stabilityai/stable-diffusion-2-1-base
+2024-10-30 20:13:11,054 - ERROR - Error processing model stabilityai/stable-diffusion-2-1-base: 
+StableDiffusionPipeline requires the transformers library but it was not found in your environment. You can install it with pip: `pip
+install transformers`
+
+2024-10-30 20:13:11,155 - INFO - 
+Starting benchmark for model: stabilityai/sdxl-turbo
+2024-10-30 20:13:11,505 - ERROR - Error processing model stabilityai/sdxl-turbo: 
+StableDiffusionXLPipeline requires the transformers library but it was not found in your environment. You can install it with pip: `pip
+install transformers`
+
+2024-10-30 20:13:11,567 - INFO - 
+Starting benchmark for model: amused/amused-512
+2024-10-30 20:13:11,569 - ERROR - Error processing model amused/amused-512: 
+AmusedPipeline requires the transformers library but it was not found in your environment. You can install it with pip: `pip
+install transformers`
+

@@ -1,0 +1,10 @@
+{
+    "prompts": [
+        "a red rose in full bloom",
+        "a snowy mountain peak at sunset",
+        "a golden retriever puppy playing"
+    ],
+    "target_size": [512, 512],
+    "truncation": 0.4,
+    "batch_size": 1
+}

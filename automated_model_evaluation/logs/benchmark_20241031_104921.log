@@ -1,0 +1,8 @@
+2024-10-31 10:49:21,868 - INFO - 
+Starting benchmark for model: CompVis/stable-diffusion-v1-4
+2024-10-31 10:49:31,148 - ERROR - Error processing model CompVis/stable-diffusion-v1-4: torch.float32 needs to be of type `torch.dtype`, e.g. `torch.float16`, but is <class 'str'>.
+2024-10-31 10:49:31,192 - INFO - 
+Starting benchmark for model: stabilityai/stable-diffusion-2-1-base
+2024-10-31 10:49:59,445 - ERROR - Error processing model stabilityai/stable-diffusion-2-1-base: torch.float32 needs to be of type `torch.dtype`, e.g. `torch.float16`, but is <class 'str'>.
+2024-10-31 10:49:59,610 - INFO - 
+Starting benchmark for model: stabilityai/sdxl-turbo
