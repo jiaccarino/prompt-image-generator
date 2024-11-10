@@ -7,7 +7,7 @@ import json
 import logging
 from datetime import datetime
 from pathlib import Path
-from transformers import CLIPProcessor, CLIPModel
+from transformers import CLIPProcessor, CLIPModel, BigGANModel, BigGANConfig
 from torchvision.transforms import ToPILImage
 import numpy as np
 
@@ -25,7 +25,7 @@ class BigGANBenchmark:
             self.target_size = tuple(config.get('target_size', (512, 512)))
             self.truncation = config.get('truncation', 0.4)
             self.batch_size = config.get('batch_size', 1)
-            self.model_size = config.get('model_size', '512')  # Can be '128', '256', or '512'
+            self.model_size = config.get('model_size', '512')  # Default to 512
             
     def setup_logging(self):
         Path('logs').mkdir(exist_ok=True)
@@ -56,50 +56,88 @@ class BigGANBenchmark:
             current_time = time.time() - self.start_time
             self.cpu_usage.append(psutil.cpu_percent())
             self.ram_usage.append(psutil.virtual_memory().used / (1024 ** 3))
+            
             if torch.cuda.is_available():
-                self.gpu_usage.append(torch.cuda.utilization())
-                self.vram_usage.append(torch.cuda.memory_allocated() / (1024 ** 3))
+                try:
+                    self.gpu_usage.append(torch.cuda.utilization())
+                    self.vram_usage.append(torch.cuda.memory_allocated() / (1024 ** 3))
+                except Exception:
+                    self.gpu_usage.append(0)
+                    self.vram_usage.append(0)
             else:
                 self.gpu_usage.append(0)
                 self.vram_usage.append(0)
+                
             self.timestamps.append(current_time)
             time.sleep(0.1)
             
     def get_baseline_usage(self):
-        return {
+        baseline = {
             'cpu': psutil.cpu_percent(),
             'ram': psutil.virtual_memory().used / (1024 ** 3),
-            'gpu': torch.cuda.utilization() if torch.cuda.is_available() else 0,
-            'vram': torch.cuda.memory_allocated() / (1024 ** 3) if torch.cuda.is_available() else 0
+            'gpu': 0,
+            'vram': 0
         }
         
+        if torch.cuda.is_available():
+            try:
+                baseline['gpu'] = torch.cuda.utilization()
+                baseline['vram'] = torch.cuda.memory_allocated() / (1024 ** 3)
+            except Exception:
+                pass
+                
+        return baseline
+        
     def load_models(self):
-        # Load BigGAN using torch.hub
+        # Create cache directory
+        Path('./model_cache').mkdir(exist_ok=True)
+        
+        # Load BigGAN
         self.logger.info("Loading BigGAN model...")
-        model_name = f'biggan-deep-{self.model_size}'
-        self.biggan = torch.hub.load('huggingface/pytorch-pretrained-biggan', 
-                                   model_name, 
-                                   pretrained=True)
-        self.biggan.to(self.device)
+        try:
+            config = BigGANConfig.from_pretrained(
+                f'biggan-deep-{self.model_size}',
+                cache_dir='./model_cache'
+            )
+            self.biggan = BigGANModel.from_pretrained(
+                f'biggan-deep-{self.model_size}',
+                config=config,
+                cache_dir='./model_cache'
+            )
+            self.biggan.to(self.device)
+            self.biggan.eval()
+        except Exception as e:
+            self.logger.error(f"Error loading BigGAN: {str(e)}")
+            raise RuntimeError("Failed to load BigGAN model")
         
-        # Load CLIP for text encoding
+        # Load CLIP
         self.logger.info("Loading CLIP model...")
-        self.clip_model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
-        self.clip_processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
-        self.clip_model.to(self.device)
+        try:
+            self.clip_model = CLIPModel.from_pretrained(
+                "openai/clip-vit-base-patch32",
+                cache_dir='./model_cache'
+            )
+            self.clip_processor = CLIPProcessor.from_pretrained(
+                "openai/clip-vit-base-patch32",
+                cache_dir='./model_cache'
+            )
+            self.clip_model.to(self.device)
+            self.clip_model.eval()
+        except Exception as e:
+            self.logger.error(f"Error loading CLIP: {str(e)}")
+            raise RuntimeError("Failed to load CLIP model")
         
-        # Load ImageNet class mappings
+        # Load ImageNet classes
         self.load_imagenet_classes()
         
     def load_imagenet_classes(self):
-        # Load ImageNet class names
         self.logger.info("Loading ImageNet classes...")
-        classes_url = "https://raw.githubusercontent.com/pytorch/hub/master/imagenet_classes.txt"
         try:
-            import urllib.request
-            with urllib.request.urlopen(classes_url) as f:
-                self.class_names = [line.decode('utf-8').strip() for line in f.readlines()]
-        except:
+            import requests
+            url = "https://raw.githubusercontent.com/pytorch/hub/master/imagenet_classes.txt"
+            response = requests.get(url)
+            self.class_names = response.text.splitlines()
+        except Exception:
             self.logger.warning("Could not load ImageNet classes from URL. Using CLIP only.")
             self.class_names = None
         
@@ -108,132 +146,123 @@ class BigGANBenchmark:
         inputs = self.clip_processor(text, return_tensors="pt", padding=True)
         inputs = {k: v.to(self.device) for k, v in inputs.items()}
         
-        # Get text features from CLIP
         with torch.no_grad():
             text_features = self.clip_model.get_text_features(**inputs)
-        
-        if self.class_names:
-            # Calculate similarity with ImageNet classes
-            class_inputs = self.clip_processor(self.class_names, return_tensors="pt", padding=True)
-            class_inputs = {k: v.to(self.device) for k, v in class_inputs.items()}
             
-            with torch.no_grad():
+            if self.class_names:
+                # Calculate similarity with ImageNet classes
+                class_inputs = self.clip_processor(
+                    self.class_names, 
+                    return_tensors="pt", 
+                    padding=True, 
+                    truncation=True
+                )
+                class_inputs = {k: v.to(self.device) for k, v in class_inputs.items()}
                 class_features = self.clip_model.get_text_features(**class_inputs)
                 
-            # Calculate similarities
-            similarities = torch.nn.functional.cosine_similarity(
-                text_features.unsqueeze(1),
-                class_features.unsqueeze(0),
-                dim=2
-            )
+                # Calculate similarities
+                similarities = torch.nn.functional.cosine_similarity(
+                    text_features.unsqueeze(1),
+                    class_features.unsqueeze(0),
+                    dim=2
+                )
+                
+                # Create class vector
+                class_vector = torch.zeros(1000, device=self.device)
+                top_k = 5
+                values, indices = similarities[0].topk(top_k)
+                values = torch.nn.functional.softmax(values, dim=0)
+                
+                for val, idx in zip(values, indices):
+                    class_vector[idx] = val
+            else:
+                # Fallback: project CLIP features to 1000-dim space
+                class_vector = torch.nn.functional.linear(
+                    text_features, 
+                    self.clip_model.text_projection
+                )
+                class_vector = torch.nn.functional.normalize(class_vector, dim=-1)
+                class_vector = torch.nn.functional.pad(
+                    class_vector, 
+                    (0, 1000 - class_vector.size(1))
+                )
             
-            # Create class vector
-            class_vector = torch.zeros(1000, device=self.device)
-            top_k = 5  # Use top 5 most similar classes
-            values, indices = similarities[0].topk(top_k)
-            values = torch.nn.functional.softmax(values, dim=0)
-            
-            for val, idx in zip(values, indices):
-                class_vector[idx] = val
-        else:
-            # Fallback: project CLIP features directly
-            class_vector = torch.nn.functional.linear(
-                text_features, 
-                self.clip_model.text_projection
-            )
-            class_vector = torch.nn.functional.normalize(class_vector, dim=-1)
-            # Expand to 1000 classes
-            class_vector = torch.nn.functional.pad(class_vector, (0, 1000 - class_vector.size(1)))
-        
-        return class_vector
+            return class_vector
         
     def generate_image(self, prompt):
-        # Get class vector from text
-        class_vector = self.get_class_vector_from_text(prompt)
-        
-        # Generate random noise vector
-        noise_vector = torch.randn(
-            self.batch_size, 
-            128,  # BigGAN's noise dimension
-            device=self.device
-        )
-        
-        # Generate image
-        with torch.no_grad():
-            output = self.biggan(
-                noise_vector,
-                class_vector,
-                self.truncation
+        try:
+            # Get class vector from text
+            class_vector = self.get_class_vector_from_text(prompt)
+            
+            # Generate random noise vector
+            noise_vector = torch.randn(
+                self.batch_size, 
+                128,
+                device=self.device
             )
+            
+            # Generate image
+            with torch.no_grad():
+                output = self.biggan(
+                    noise_vector,
+                    class_vector.unsqueeze(0),
+                    self.truncation
+                ).images
+            
+            # Convert to PIL Image
+            output = output.cpu()
+            output = (output + 1) / 2
+            output = output.clamp(0, 1)
+            image = ToPILImage()(output[0])
+            
+            return image
         
-        # Convert to PIL Image
-        output = output.cpu()
-        output = (output + 1) / 2  # Convert from [-1, 1] to [0, 1]
-        output = output.clamp(0, 1)
-        image = ToPILImage()(output[0])
-        
-        return image
+        except Exception as e:
+            self.logger.error(f"Error generating image: {str(e)}")
+            raise RuntimeError(f"Failed to generate image for prompt: {prompt}")
         
     def save_metrics(self):
-        min_cpu, max_cpu = min(self.cpu_usage), max(self.cpu_usage)
-        min_ram, max_ram = min(self.ram_usage), max(self.ram_usage)
-        min_gpu, max_gpu = min(self.gpu_usage), max(self.gpu_usage)
-        min_vram, max_vram = min(self.vram_usage), max(self.vram_usage)
+        metrics = {
+            'cpu': (min(self.cpu_usage), max(self.cpu_usage)),
+            'ram': (min(self.ram_usage), max(self.ram_usage)),
+            'gpu': (min(self.gpu_usage), max(self.gpu_usage)),
+            'vram': (min(self.vram_usage), max(self.vram_usage))
+        }
         
         self.logger.info("\nMetrics for BigGAN:")
         self.logger.info("--------------------")
-        self.logger.info(f"CPU - Min: {min_cpu:.2f}%, Max: {max_cpu:.2f}%")
-        self.logger.info(f"GPU - Min: {min_gpu:.2f}%, Max: {max_gpu:.2f}%")
-        self.logger.info(f"RAM - Min: {min_ram:.2f}GB, Max: {max_ram:.2f}GB")
-        self.logger.info(f"VRAM - Min: {min_vram:.2f}GB, Max: {max_vram:.2f}GB")
+        for resource, (min_val, max_val) in metrics.items():
+            self.logger.info(
+                f"{resource.upper()} - Min: {min_val:.2f}{'%' if resource in ['cpu', 'gpu'] else 'GB'}, "
+                f"Max: {max_val:.2f}{'%' if resource in ['cpu', 'gpu'] else 'GB'}"
+            )
         
     def plot_utilization(self):
         plt.figure(figsize=(12, 8))
         
-        # CPU
-        plt.subplot(2, 2, 1)
-        plt.plot(self.timestamps, self.cpu_usage, label='CPU Usage')
-        plt.axhline(y=self.baseline_usage['cpu'], color='r', linestyle='--', label='Baseline')
-        plt.axvline(x=self.models_loading_time - self.start_time, color='b', linestyle='--', label='Models Loaded')
-        plt.xlabel('Time (s)')
-        plt.ylabel('% Utilization')
-        plt.title('CPU (%)')
+        plots = {
+            1: ('CPU (%)', self.cpu_usage, '%'),
+            2: ('RAM (GB)', self.ram_usage, 'GB'),
+            3: ('GPU (%)', self.gpu_usage, '%'),
+            4: ('VRAM (GB)', self.vram_usage, 'GB')
+        }
         
-        # RAM
-        plt.subplot(2, 2, 2)
-        plt.plot(self.timestamps, self.ram_usage, label='RAM Usage')
-        plt.axhline(y=self.baseline_usage['ram'], color='r', linestyle='--', label='Baseline')
-        plt.axvline(x=self.models_loading_time - self.start_time, color='b', linestyle='--', label='Models Loaded')
-        plt.xlabel('Time (s)')
-        plt.ylabel('GB')
-        plt.title('RAM (GB)')
-        
-        # GPU
-        plt.subplot(2, 2, 3)
-        plt.plot(self.timestamps, self.gpu_usage, label='GPU Usage')
-        plt.axhline(y=self.baseline_usage['gpu'], color='r', linestyle='--', label='Baseline')
-        plt.axvline(x=self.models_loading_time - self.start_time, color='b', linestyle='--', label='Models Loaded')
-        plt.xlabel('Time (s)')
-        plt.ylabel('% Utilization')
-        plt.title('GPU (%)')
-        
-        # VRAM
-        plt.subplot(2, 2, 4)
-        plt.plot(self.timestamps, self.vram_usage, label='VRAM Usage')
-        plt.axhline(y=self.baseline_usage['vram'], color='r', linestyle='--', label='Baseline')
-        plt.axvline(x=self.models_loading_time - self.start_time, color='b', linestyle='--', label='Models Loaded')
-        plt.xlabel('Time (s)')
-        plt.ylabel('GB')
-        plt.title('VRAM (GB)')
-        
-        # Add prompt completion lines
-        for end_time in self.prompt_end_times:
-            for i in range(1, 5):
-                plt.subplot(2, 2, i).axvline(x=end_time, color='g', linestyle='--')
+        for i, (title, data, unit) in plots.items():
+            plt.subplot(2, 2, i)
+            plt.plot(self.timestamps, data, label=f'{title} Usage')
+            plt.axhline(y=self.baseline_usage[title.split()[0].lower()], 
+                       color='r', linestyle='--', label='Baseline')
+            plt.axvline(x=self.models_loading_time - self.start_time, 
+                       color='b', linestyle='--', label='Models Loaded')
+            
+            # Add prompt completion lines
+            for end_time in self.prompt_end_times:
+                plt.axvline(x=end_time, color='g', linestyle='--')
                 
-        # Add legends
-        for i in range(1, 5):
-            plt.subplot(2, 2, i).legend()
+            plt.xlabel('Time (s)')
+            plt.ylabel(unit)
+            plt.title(title)
+            plt.legend()
             
         plt.tight_layout()
         
@@ -259,9 +288,10 @@ class BigGANBenchmark:
             
             # Generate images for each prompt
             times = []
-            for i, prompt in enumerate(self.prompts):
+            for i, prompt in enumerate(self.prompts, 1):
                 start_prompt_time = time.time()
                 
+                self.logger.info(f"Generating image {i}/{len(self.prompts)} for prompt: '{prompt}'")
                 image = self.generate_image(prompt)
                 
                 end_prompt_time = time.time()
@@ -271,39 +301,61 @@ class BigGANBenchmark:
                 # Save image
                 Path('images').mkdir(exist_ok=True)
                 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-                filename = f'images/biggan_image_{i+1}_{timestamp}.png'
+                filename = f'images/biggan_image_{i}_{timestamp}.png'
                 image = image.resize(self.target_size)
                 image.save(filename)
                 
-                self.logger.info(f"Generated image {i+1}/{len(self.prompts)} in {elapsed_time:.2f} seconds")
+                self.logger.info(f"Generated image {i}/{len(self.prompts)} in {elapsed_time:.2f} seconds")
                 self.prompt_end_times.append(end_prompt_time - self.start_time)
-                torch.cuda.empty_cache()
+                
+                # Clear GPU memory
+                if torch.cuda.is_available():
+                    torch.cuda.empty_cache()
             
             # Log average generation time
             avg_time = sum(times) / len(times)
             self.logger.info(f"Average generation time: {avg_time:.2f} seconds")
             
+        except Exception as e:
+            self.logger.error(f"Error during benchmark: {str(e)}")
+            raise
+            
+        finally:
             # Stop monitoring and save metrics
             self.monitoring = False
             monitor_thread.join()
             self.save_metrics()
             self.plot_utilization()
             
-        except Exception as e:
-            self.logger.error(f"Error during benchmark: {str(e)}")
-            self.monitoring = False
-            monitor_thread.join()
-            
-        finally:
             # Clean up
-            torch.cuda.empty_cache()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
             if hasattr(self, 'biggan'):
                 del self.biggan
             if hasattr(self, 'clip_model'):
                 del self.clip_model
 
 def main():
-    benchmark = BigGANBenchmark('biggan_config.json')
+    config_file = 'biggan_config.json'
+    
+    # Create config file
+    config = {
+        "prompts": [
+            "a red rose in full bloom",
+            "a snowy mountain peak at sunset",
+            "a golden retriever puppy playing"
+        ],
+        "target_size": [512, 512],
+        "truncation": 0.4,
+        "batch_size": 1
+    }
+    
+    # Save config
+    with open(config_file, 'w') as f:
+        json.dump(config, f, indent=4)
+    
+    # Run benchmark
+    benchmark = BigGANBenchmark(config_file)
     benchmark.run_benchmark()
 
 if __name__ == "__main__":
